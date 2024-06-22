@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Details</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+</head>
+<body>
+    <h1>Contact Details</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Mobile</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><%= contact.id %></td>
+                <td><%= contact.name %></td>
+                <td><%= contact.mobile %></td>
+                <td><%= contact.email %></td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="/contacts">Back to Contacts List</a>
+</body>
+</html>

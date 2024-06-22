@@ -1,0 +1,7 @@
+.navbar {
+    background: orangered;
+    height: 85px;
+    display: flex;
+    justify-content: space-between;
+    /* Add more styling as needed */
+  }

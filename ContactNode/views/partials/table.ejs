@@ -1,0 +1,25 @@
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Mobile</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% contacts.forEach(contact => {  %>
+            <tr>
+                <td><%= contact.name %></td>
+                <td><%= contact.mobile %></td>
+                <td>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#detailModal<%= contact.id %>">Details</button>
+                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#updateModal<%= contact.id %>">Update</button>
+                    <form action="/contact/delete/<%= contact.id %>" method="post" style="display: inline;">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            <%- include('modal.ejs', { contact: contact }) %>
+        <% }); %>
+    </tbody>
+</table>
