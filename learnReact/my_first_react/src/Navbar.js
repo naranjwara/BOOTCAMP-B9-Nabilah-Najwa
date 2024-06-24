@@ -1,10 +1,9 @@
 import React from 'react';
-// import './Navbar.css'; // You can create a separate CSS file for styling
 
 const Navbar = () => {
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-                <a className="navbar-brand" href="#home">MyBrand</a>
+                <a className="navbar-brand" href="#home">Navbar</a>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
@@ -27,34 +26,5 @@ const Navbar = () => {
         </nav>
     );
 };
-
-const styles = {
-    navbar: {
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      padding: '10px 20px',
-      backgroundColor: '#333',
-      color: '#fff',
-    },
-    brand: {
-      fontSize: '24px',
-      fontWeight: 'bold',
-    },
-    navLinks: {
-      listStyle: 'none',
-      display: 'flex',
-      margin: 0,
-      padding: 0,
-    },
-    navItem: {
-      margin: '0 10px',
-    },
-    navLink: {
-      color: '#fff',
-      textDecoration: 'none',
-      fontSize: '18px',
-    },
-  };
 
 export default Navbar;

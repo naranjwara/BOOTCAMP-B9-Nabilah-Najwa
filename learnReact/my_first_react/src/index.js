@@ -1,33 +1,31 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import Navbar from './Navbar';
+import ReactDOM from 'react-dom/client';
+// import Navbar from './Navbar';
+// import Content from './Content';
+// import Comment from './Comment';
+// import App from './App';
+// import Comments from './Comments';
+import Main from './Main';
 
 const root = document.getElementById('root');
 const navbarRoot = document.getElementById('navbar-root');
 
-ReactDOM.render(
+const rootContainer = ReactDOM.createRoot(root);
+const navbarContainer = ReactDOM.createRoot(navbarRoot);
+
+rootContainer.render(
   <React.StrictMode>
-      <main>
-        <section id="home">
-          <h5>Welcome to My Website</h5>
-        </section>
-        <section id="about">
-          <h5>About Us</h5>
-        </section>
-        <section id="services">
-          <h5>Our Services</h5>
-        </section>
-        <section id="contact">
-          <h5>Contact Us</h5>
-        </section>
-      </main>
-  </React.StrictMode>,
-  root
+    <Main />
+    {/* <Comments /> */}
+    {/* <Content />  */}
+    {/* <Comment /> */}
+    {/* <App /> */}
+    {/* <h4>{new Date().toLocaleDateString()}</h4> */}
+  </React.StrictMode>
 );
 
-ReactDOM.render(
+navbarContainer.render(
   <React.StrictMode>
-    <Navbar />
-  </React.StrictMode>,
-  navbarRoot
+    {/* <Navbar /> */}
+  </React.StrictMode>
 );
