@@ -2,8 +2,9 @@ const yargs = require("yargs");
 const fs = require('fs').promises;
 const path = require('path');
 
-const contactsPath = path.join(__dirname, 'data', 'contacts.json');
+const contactsPath = path.join(__dirname, 'data', 'contacts.json'); // Menentukan path ke file contacts.json
 
+// Fungsi untuk membaca kontak dari file
 async function readContacts() {
     try {
         const data = await fs.readFile(contactsPath, 'utf-8');
@@ -14,11 +15,13 @@ async function readContacts() {
     }
 }
 
+// Fungsi untuk menemukan kontak berdasarkan nama
 async function findByName(contacts, name) {
     const contact = contacts.find(contact => contact.name === name);
     return contact;
 }
 
+// Fungsi untuk menulis kontak ke file
 async function writeContacts(contacts) {
     try {
         await fs.writeFile(contactsPath, JSON.stringify(contacts, null, 2));
@@ -28,6 +31,7 @@ async function writeContacts(contacts) {
     }
 }
 
+// Fungsi untuk menambahkan kontak baru
 async function addContact(name, mobile, email = '') {
     if (!mobile) {
         console.error('Mobile number cannot be empty');
@@ -35,6 +39,7 @@ async function addContact(name, mobile, email = '') {
     }
     let contacts = await readContacts();
     
+    // Memeriksa apakah kontak dengan nama yang sama sudah ada
     const existingContact = await findByName(contacts, name);
     if (existingContact) {
         console.error(`Contact with name ${name} already exists`);
@@ -49,6 +54,7 @@ async function addContact(name, mobile, email = '') {
     console.log(`Contact "${name}" added successfully`);
 }
 
+// Fungsi untuk memeriksa ID berikutnya untuk kontak baru
 async function checkId(contacts) {
     if (!contacts) {
         contacts = await readContacts();
@@ -66,6 +72,7 @@ async function checkId(contacts) {
     return nextId;
 }
 
+// Fungsi untuk menampilkan semua kontak
 async function listContacts() {
     const contacts = await readContacts();
     console.log(`Contacts:`);
@@ -74,6 +81,7 @@ async function listContacts() {
     });
 }
 
+// Fungsi untuk memperbarui kontak
 async function updateContact(oldName, newName, mobile, email = '') {
     let contacts = await readContacts();
 
@@ -99,6 +107,7 @@ async function updateContact(oldName, newName, mobile, email = '') {
     }
 }
 
+// Fungsi untuk menampilkan detail kontak berdasarkan nama
 async function getContactDetails(name) {
     const contacts = await readContacts();
     const contact = await findByName(contacts, name);
@@ -110,6 +119,7 @@ async function getContactDetails(name) {
     }
 }
 
+// Fungsi menghapus kontak berdasarkan nama
 async function deleteContact(name) {
     let contacts = await readContacts();
     const initialLength = contacts.length;
@@ -124,6 +134,7 @@ async function deleteContact(name) {
     }
 }
 
+// Perintah yargs untuk menambahkan kontak baru
 yargs.command({
     command: 'add',
     describe: 'Add a new contact',
@@ -148,6 +159,7 @@ yargs.command({
     }
 });
 
+// Perintah yargs untuk mmenampilkan semua kontak
 yargs.command({
     command: 'list',
     describe: 'List all contacts',
@@ -156,6 +168,7 @@ yargs.command({
     }
 });
 
+// Perintah yargs untuk memperbarui kontak
 yargs.command({
     command: 'update',
     describe: 'Update contact information',
@@ -183,6 +196,7 @@ yargs.command({
     }
 });
 
+// Perintah yargs untuk menampilkan detail suatu kontak
 yargs.command({
     command: 'details',
     describe: 'Show contact details by name',
@@ -198,6 +212,7 @@ yargs.command({
     }
 });
 
+// Perintah yargs untuk menghapus kontak
 yargs.command({
     command: 'delete',
     describe: 'Delete contact by name',
@@ -213,4 +228,5 @@ yargs.command({
     }
 });
 
+// Mengekspor module yargs
 module.exports = yargs;

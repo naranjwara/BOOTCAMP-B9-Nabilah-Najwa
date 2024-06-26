@@ -2,17 +2,21 @@ const fs = require('fs').promises;
 const validator = require('validator');
 const readline = require('readline');
 
+// Interface readline untuk membaca input dari terminal
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
 
+// Fungsi menanyakan ke user dan mengembalikan dengan promise
 const question = (query) => new Promise(resolve => rl.question(query, resolve));
 
+// Meminta nama user
 async function getName() {
   return await question('Masukkan nama anda: ');
 }
 
+// Meminta nomor telepon user dan validasi nomor
 async function getPhoneNumber() {
   let noTelp;
   while (true) {
@@ -23,6 +27,7 @@ async function getPhoneNumber() {
   return noTelp;
 }
 
+// Meminta email user dan validasi email
 async function getEmail() {
   let email;
   while (true) {
@@ -33,6 +38,7 @@ async function getEmail() {
   return email;
 }
 
+// Fungsi untuk menyimpan kontak ke dalam file 'contacts.json'
 async function saveContact(contact) {
   try {
     const data = await fs.readFile('data/contacts.json', 'utf8');
@@ -47,6 +53,7 @@ async function saveContact(contact) {
   }
 }
 
+// Ekspor fungsi-fungsi 
 module.exports = {
   getName,
   getPhoneNumber,

@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 
-class DataDisplay extends Component {
+// Komponen Comments untuk menampilkan isi kolom komentar
+class Comments extends Component {
     render() {  
-        const { data } = this.props;
+        // Ambil prop  
+        const { data, handleLikeClick } = this.props;
         
         return (
             <div className="ui comments">
             <h3 className="ui dividing header">Comments</h3>
+            {/* Mengambil data dari Main.js */}
             {data.map((item, index) => (
                 <div className="comment" key={index}>
                 <a className="avatar">
@@ -21,7 +24,9 @@ class DataDisplay extends Component {
                     {item.words}
                     </div>
                     <div className="actions">
-                    <a className="reply">Reply</a>
+                    <a className="like">{item.like}</a>
+                    {/* Memanggil dan menggunakan fungsi handleLikeClick() */}
+                    <button onClick={() => handleLikeClick(index)}>Like</button>
                     </div>
                 </div>
                 </div>
@@ -31,4 +36,4 @@ class DataDisplay extends Component {
     }
 };
 
-export default DataDisplay;
+export default Comments;

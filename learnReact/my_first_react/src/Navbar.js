@@ -1,5 +1,6 @@
 import React from 'react';
 
+// Komponen Navbar untuk menampilkan isi navbar
 const Navbar = () => {
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">

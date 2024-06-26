@@ -6,12 +6,14 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const { body, validationResult } = require('express-validator');
 
+// Meimpor konfigurasi pool untuk koneksi database
 const pool = require('./db');
 
 const app = express();
 const port = 3000;
 const dataPath = path.join(__dirname, 'data', 'contacts.json');
 
+// Middleware
 app.use(express.static('views'));
 app.set('view engine', 'ejs');
 app.use(express.json());
@@ -21,11 +23,14 @@ app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+// Inisialisasi session untuk setMessage
 app.use(session({
     secret: 'your_secret_key',
     resave: false,
     saveUninitialized: true
 }));
+
+// Menghubungkan database dengan pooling
 app.use(async (req, res, next) => {
     try {
         req.dbClient = await pool.connect();
@@ -36,10 +41,12 @@ app.use(async (req, res, next) => {
     }
 });
 
+// Fungsi mengatur pesan di session
 function setMessage(req, message) {
     req.session.message = message;
 }
 
+// Route mendapatkan semua kontak 
 app.get('/api/contacts', async (req, res) => {
     try {
         const contacts = await req.dbClient.query('SELECT * FROM contacts');
@@ -52,6 +59,7 @@ app.get('/api/contacts', async (req, res) => {
     }
 });
 
+// Route mendapatkan contact by id
 app.get('/api/contact/:id', async (req, res) => {
     try {
         const id = parseInt(req.params.id, 10);
@@ -75,6 +83,7 @@ app.get('/api/contact/:id', async (req, res) => {
     }
 });
 
+// Route menampilkan semua kontak di halaman 'contacts'
 app.get('/contacts', async (req, res) => {
     try {
         const contacts = await req.dbClient.query('SELECT * FROM contacts');
@@ -90,17 +99,20 @@ app.get('/contacts', async (req, res) => {
     }
 });
 
+// Route menampilkan halaman form penambahan kontak baru
 app.get('/contacts/add', (req, res) => {
     const message = req.session.message || '';
     delete req.session.message;
     res.render('newContact', { message });
 });
 
+// Fungsi memeriksa apakah kontak nama tertentu sudah ada di database
 async function contactExists(dbClient, name) {
     const result = await dbClient.query('SELECT * FROM contacts WHERE LOWER(name) = LOWER($1)', [name]);
     return result.rows.length > 0;
 }
 
+// Route menambahkan kontak baru melalui API
 app.post(
     '/api/contacts', 
     [body('email').isEmail().withMessage('Format email is not valid')],
@@ -114,6 +126,7 @@ app.post(
                 return res.status(400).redirect('/contacts/add');
             }
 
+            // Memanggil fungsi contactExists untuk duplikasi input nama
             const duplicate = await contactExists(req.dbClient, name);
             if (duplicate) {
                 setMessage(req, 'Contact with this name already exists!');
@@ -135,6 +148,7 @@ app.post(
     }
 });
 
+// Route menghapus kontak berdasarkan ID
 app.post('/contacts/delete/:id', async (req, res) => {
     try {
         const id = parseInt(req.params.id, 10);
@@ -161,6 +175,7 @@ app.post('/contacts/delete/:id', async (req, res) => {
     }
 });
 
+// ROute memperbaharui kontak berdasarkan ID
 app.post('/contacts/update/:id', async (req, res) => {
     try {
         const id = parseInt(req.params.id, 10);
@@ -188,27 +203,7 @@ app.post('/contacts/update/:id', async (req, res) => {
     }
 });
 
-// app.get('/contact/:id', async (req, res) => {
-//     try {
-//         const id = parseInt(req.params.id, 10); 
-//         if (isNaN(id)) {
-//             return res.status(400).send('Invalid contact ID'); 
-//         }
-
-//         const contacts = await readContactsFile();
-//         const contact = contacts.find(contact => contact.id === id);
-
-//         if (contact) {
-//             res.render('contactId', { contact });
-//         } else {
-//             res.status(404).send('Contact not found'); 
-//         }
-//     } catch (error) {
-//         console.error('Error getting contact:', error);
-//         res.status(500).send('Internal Server Error'); 
-//     }
-// });
-
+// Server listen pada port
 app.listen(port, () => {
     console.log(`This app is running on http://localhost:${port}/contacts`);
 });

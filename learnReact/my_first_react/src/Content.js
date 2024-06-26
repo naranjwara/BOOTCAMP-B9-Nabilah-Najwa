@@ -1,5 +1,6 @@
 import React from "react";
 
+// Komponen Content untuk menampilkan isi content
 const Content = () => {
     return (        
       <main>

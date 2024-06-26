@@ -1,9 +1,11 @@
+<!-- contacts.ejs  -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contacts</title>
+    <!-- Bootcamp CSS  -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
@@ -11,6 +13,7 @@
         <br>
         <h1>Contact List</h1>
         
+        <!-- Message Modal  -->
         <% if (message) { %>
             <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -24,9 +27,13 @@
             </div>
         <% } %>
         
+        <!-- Tombol untuk tambah kontak  -->
         <a href="/contacts/add" class="btn btn-primary mb-2">Add Contact</a>
 
+        <!-- Urutan daftar kontak berdasarkan nama  -->
         <% contacts.sort((a, b) => a.name.localeCompare(b.name)); %>
+
+        <!-- Tabel untuk daftar kontak  -->
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -36,13 +43,17 @@
                 </tr>
             </thead>
             <tbody>
+                <!-- Iterasi melalui daftar kontak  -->
                 <% contacts.forEach(contact => { %>
                     <tr>
                         <td><%= contact.name %></td>
                         <td><%= contact.mobile %></td>
                         <td>
+                            <!-- Tombol detail  -->
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#detailsModal<%= contact.id %>">Details</button>
+                            <!-- Tombol update  -->
                             <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#updateModal<%= contact.id %>">Update</button>
+                            <!-- Tombol delete  -->
                             <form action="/contacts/delete/<%= contact.id %>" method="POST" style="display: inline;">
                                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal<%= contact.id %>">Delete</button>
                             </form>
@@ -89,7 +100,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- End Details Modal --> 
 
                     <!-- Update Modal -->
                     <div class="modal fade" id="updateModal<%= contact.id %>" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
@@ -124,15 +134,20 @@
                             </div>
                         </div>
                     </div>
-                    <!-- End Update Modal -->
+                <!-- Akhir Iterasi  -->
                 <% }); %>
             </tbody>
         </table>
     </div>
 
+    <!-- Penggunaan jQuery  -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <!-- Penggunaan Popper.js  -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <!-- Penggunaan Bootstrap JS  -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <!-- Script untuk menampilkan modal pesan  -->
     <script>
         $(document).ready(function() {
             var message = '<%= message %>';

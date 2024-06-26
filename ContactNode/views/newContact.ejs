@@ -1,15 +1,18 @@
+<!-- File contents newContacts.ejs  -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New Contact</title>
+    <!-- Penggunakan bootstrap CSS  -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
 </head>
 <body>
     <div class="container">
         <h1>Add New Contact</h1>
 
+        <!-- Modal pessan  -->
         <% if (message) { %>
             <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -23,20 +26,26 @@
             </div>
         <% } %>
 
+        <!-- Form input kontak baru   --> 
         <form action="/api/contacts" method="POST">
             <div class="form-group">
+                <!-- Input nama  -->
                 <label for="name">Name</label>
                 <input type="text" class="form-control" id="name" name="name" placeholder="Enter name" required>
             </div>
             <div class="form-group">
+                <!-- Input nomor telepon  -->
                 <label for="mobile">Mobile</label>
                 <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Enter mobile number" required>
             </div>
             <div class="form-group">
+                <!-- Input email  -->
                 <label for="email">Email</label>
                 <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
             </div>
+            <!-- Tombol submit  -->
             <button type="submit" class="btn btn-primary">Submit</button>
+            <!-- Tombol batal dengan link kembali ke halaman kontak  -->
             <a href="/contacts" class="btn btn-secondary ml-2">Cancel</a>
         </form>
     </div>
