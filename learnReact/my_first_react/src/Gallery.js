@@ -1,32 +1,57 @@
-import React, { useEffect } from "react";
-import unsplash from './Unsplash' // Impor instance Axios dari 'Unsplash.js'
+import React, { useEffect, useState, useRef } from "react";
+import unsplash from './Unsplash'; // Pastikan file import sesuai dengan struktur proyek
 
 // Inisialisasi komponen Gallery
 const Gallery = () => {
-    // useEffect untuk memuat data
+    const [photos, setPhotos] = useState([]);
+    const imgRefs = useRef([]); // Ref untuk menyimpan referensi ke setiap elemen gambar
+
+    // useEffect untuk memuat data foto-foto
     useEffect(() => {
         const fetchPhotos = async () => {
             try {
-                // Permintaan GET ke Api Unsplash
+                // Permintaan GET ke API Unsplash
                 const response = await unsplash.get('/search/photos', {
                     params: {
                         query: 'Cat', // Kata kunci pencarian
-                        per_page: 10, // Jumlah data yang diambil
+                        per_page: 25, // Jumlah foto yang diambil
                     },
                 });
 
-                console.log(response.data.results); // Menampilkan dalam format array
+                setPhotos(response.data.results); // Menyimpan data foto dalam state
             } catch (error) {
                 console.error('Error fetching data', error);
             }
+        };
 
-        }
-
-        fetchPhotos(); 
+        fetchPhotos();
     }, []);
 
-    return <div></div>;
-}
+    // Memanfaatkan createRef untuk setiap elemen gambar
+    useEffect(() => {
+        imgRefs.current = imgRefs.current.slice(0, photos.length); // Menyamakan panjang ref dengan jumlah foto
+    }, [photos]);
+
+    return (
+        <div className="gallery-container">
+            <div className="row">
+                {photos.map((photo, index) => (
+                    <div key={photo.id} className="col-md-4">
+                        <div className="gallery-item">
+                            <img
+                                ref={el => imgRefs.current[index] = el}
+                                src={photo.urls.small}
+                                alt={photo.description}
+                                className="gallery-image"
+                            />
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+        
+    );
+};
 
 // Ekspor komponen sebagai module
 export default Gallery;

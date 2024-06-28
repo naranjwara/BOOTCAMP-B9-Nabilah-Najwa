@@ -7,15 +7,16 @@ import ReactDOM from 'react-dom/client';
 // import Clock from './TimeString';
 // import UserInput from './UserInput'
 import Gallery from './Gallery';
+import ScrollToTopButton from './scrollToTopButton';
 
 const root = document.getElementById('root');
-const navbarRoot = document.getElementById('navbar-root');
+// const navbarRoot = document.getElementById('navbar-root');
 
 // Id root container  untuk aplikasi utama
 const rootContainer = ReactDOM.createRoot(root);
 
 // Id root container untuk navbar
-const navbarContainer = ReactDOM.createRoot(navbarRoot);
+// const navbarContainer = ReactDOM.createRoot(navbarRoot);
 
 rootContainer.render(
   <React.StrictMode>
@@ -24,13 +25,14 @@ rootContainer.render(
     {/* <Content />  */}
     {/* <Clock /> */}
     {/* <UserInput /> */}
+    <ScrollToTopButton />
     <Gallery />
     {/* <h2>{new Date().toLocaleTimeString()}</h2> */}
   </React.StrictMode>
 );
 
-navbarContainer.render(
-  <React.StrictMode>
-    {/* <Navbar /> */}
-  </React.StrictMode>
-);
+// navbarContainer.render(
+//   <React.StrictMode>
+//     {/* <Navbar /> */}
+//   </React.StrictMode>
+// );

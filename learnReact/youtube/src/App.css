@@ -1,0 +1,97 @@
+.youtube-search-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  background-color: #282828;
+  color: #ccc;
+}
+
+.youtube-search-container h2 {
+  font-size: 150%;
+  font-weight: bolder;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 20px;
+  margin-left: 50px; /* Sesuaikan jika diperlukan */
+}
+
+.search-form {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  align-items: center;
+  /* background-color: #282828; */
+  margin-bottom: 15px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #7d7d7d;
+  border-radius: 25px;
+  background-color: #282828;
+}
+
+.search-button {
+  background-color: #FF0000;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-left: 10px;
+  cursor: pointer;
+  border-radius: 25px;
+}
+
+.video-and-thumbnails {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.video-player {
+  flex: 2;
+}
+
+.video-player iframe {
+  width: 100%;
+  height: 450px;
+  border: none;
+  border-radius: 8px;
+}
+
+.thumbnail-list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.thumbnail-item {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.thumbnail {
+  width: 160px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.thumbnail-text {
+  flex: 1;
+}
+
+.thumbnail-text h3 {
+  font-size: 14px;
+  color: #ccc;
+  margin: 0;
+}
+ 
