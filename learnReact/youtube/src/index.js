@@ -1,15 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
+// import App from './App';
+// import Redux from './Redux';
+// import MyForm from './FinalForm';
+import EmployeeForm from './EmployeeForm';
+
+/**
+ * Titik utama masuk aplikasi React.
+ * Menggunakan ReactDOM.createRoot untuk merender komponen utama 'App' di dalam elemen HTML dengan id 'root'
+ * React.StrictMode digunakan untuk menyoroti potensi masalah dalam aplikasi
+ */
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    {/* <App /> */}
+    {/* <Redux /> */}
+    {/* <MyForm /> */} 
+    <EmployeeForm />
   </React.StrictMode>
-);
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+); 
  

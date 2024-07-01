@@ -1,24 +1,46 @@
 import React, { useEffect, useState, useRef } from "react";
-import unsplash from './Unsplash'; // Pastikan file import sesuai dengan struktur proyek
+import unsplash from './Unsplash'; 
 
-// Inisialisasi komponen Gallery
+/**
+ * Komponen Gallery menampilkan foto Kucing diambil dari Unsplash dengan ukuran kecil dan beserta deskripsinnya.
+ * 
+ * @component
+ * @example * 
+ *  return (
+        <div className="gallery-container">
+            <div className="row">
+                {photos.map((photo, index) => (
+                    <div key={photo.id} className="col-md-4">
+                        <div className="gallery-item">
+                            <img
+                                ref={el => imgRefs.current[index] = el}
+                                src={photo.urls.small}
+                                alt={photo.description}
+                                className="gallery-image"
+                            />
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+        
+    );
+ */
+
 const Gallery = () => {
     const [photos, setPhotos] = useState([]);
-    const imgRefs = useRef([]); // Ref untuk menyimpan referensi ke setiap elemen gambar
-
-    // useEffect untuk memuat data foto-foto
+    const imgRefs = useRef([]); 
     useEffect(() => {
         const fetchPhotos = async () => {
             try {
-                // Permintaan GET ke API Unsplash
                 const response = await unsplash.get('/search/photos', {
                     params: {
-                        query: 'Cat', // Kata kunci pencarian
-                        per_page: 25, // Jumlah foto yang diambil
+                        query: 'Cat', 
+                        per_page: 25, 
                     },
                 });
 
-                setPhotos(response.data.results); // Menyimpan data foto dalam state
+                setPhotos(response.data.results); 
             } catch (error) {
                 console.error('Error fetching data', error);
             }
@@ -27,9 +49,8 @@ const Gallery = () => {
         fetchPhotos();
     }, []);
 
-    // Memanfaatkan createRef untuk setiap elemen gambar
     useEffect(() => {
-        imgRefs.current = imgRefs.current.slice(0, photos.length); // Menyamakan panjang ref dengan jumlah foto
+        imgRefs.current = imgRefs.current.slice(0, photos.length); 
     }, [photos]);
 
     return (
@@ -53,5 +74,4 @@ const Gallery = () => {
     );
 };
 
-// Ekspor komponen sebagai module
 export default Gallery;

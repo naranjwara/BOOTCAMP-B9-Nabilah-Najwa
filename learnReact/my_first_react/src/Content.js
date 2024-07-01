@@ -1,6 +1,14 @@
 import React from "react";
 
-// Komponen Content untuk menampilkan isi content
+/**
+ * Komponen Content untuk menampilkan konten utama dari halaman web, termasuk bagian home, about, services, dan contact.
+ * 
+ * @component
+ * @example
+ *  return (        
+      <Content />
+    )
+ */
 const Content = () => {
     return (        
       <main>

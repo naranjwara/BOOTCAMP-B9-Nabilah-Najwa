@@ -1,50 +1,39 @@
 import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
 import './App.css';
+import fetchYouTubeVideos from './youtubeAPI';
 
-const API_KEY = 'AIzaSyBZuEKvFdDG_f3j4BRerLee3saM9z-G0xU'; 
-const API_URL = 'https://www.googleapis.com/youtube/v3/search';
-
-// Fungsi untuk mengambil video dari API YouTube
-const fetchYouTubeVideos = async (searchQuery, maxResults = 25) => {
-  try {
-    const { data } = await axios(API_URL, {
-      params: {
-        key: API_KEY,
-        part: 'snippet',
-        q: searchQuery,
-        type: 'video',
-        maxResults,
-      },
-    });
-    return data.items;
-  } catch (error) {
-    console.error('Error fetching Youtube data', error);
-    return [];
-  }
-}
-
+/**
+ * Komponen App untuk menampilkan video berdasarkan search query yang diambil dari Youtube Data API
+ * 
+ * @component
+ * @return
+ * return (
+ *   <App />
+ * )
+ */
 
 const App = () => {
+  // State untuk menyimpan perubahan
   const [searchQuery, setSearchQuery] = useState(''); // Menyimpan query pencarian
-  const [videos, setVideos] = useState([]); // Menyimpan daftar video
-  const [currentVideo, setCurrentVideo] = useState(null); // Menyimpan video yang sedang diputar
-  const currentVideoRef = useRef(null); // Referensi untuk elemen video yang sedang diputar
+  const [videos, setVideos] = useState([]); // Menyimpan daftar default video
+  const [currentVideo, setCurrentVideo] = useState(null); // Menyimpan video saat sedang diputar
+  const currentVideoRef = useRef(null); // Referensi untuk elemen video saat diputar
 
-  // Mengambil video default pada render pertama
+
+  // Menampilkan video default saat halaman pertama kali di render dan query search masih kosong.
   useEffect(() => {
     const fetchDefaultVideos = async () => {
       const defaultVideos = await fetchYouTubeVideos('default search query');
       setVideos(defaultVideos);
       if (defaultVideos.length > 0){
-        setCurrentVideo(defaultVideos[0]);
+       setCurrentVideo(defaultVideos[0]);
       }
     };
 
     fetchDefaultVideos();
   }, []);
 
-  // Menangani submit pencarian
+  // Menampilkan video pertama yang sesuai dengan query search dan set sebagai current video.
   const handleSearchSubmit = async (event) => {
     event.preventDefault();
     const videosData = await fetchYouTubeVideos(searchQuery);
@@ -52,7 +41,8 @@ const App = () => {
     setCurrentVideo(videosData.length > 0 ? videosData[0] : null)
   }
 
-  // Menangani klik di thumbnails video 
+ 
+  // Halaman akan bergulir ke atas secara otomatis saat menenkan suatu video
   const handleVideoClick = (video) => {
     setCurrentVideo(video);
     setTimeout(() => {

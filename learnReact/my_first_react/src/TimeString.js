@@ -1,43 +1,37 @@
-import React, {Component} from "react";
+import React, {useState, useEffect } from "react";
 
-// Inisialisasi komponen Clock untuk format jam digital
-class Clock extends Component {
-    constructor(props){
-        super(props);
-        // Inisialisasi state dengan waktu saat ini
-        this.state = {
-            time: new Date().toLocaleTimeString()
-        }
-    }
+/**
+ * Komponen Clock menampilkan jam digital yang akan terupdate setiap detik.
+ * @component
+ * @example
+ *  return (
+        <div>
+            <h2>{time}</h2>
+        </div>
+    )
+ */
+const Clock = () => {
+    // State untuk menyimpan waktu saat ini dalam format string
+    const [time, setTime] = useState(new Date().toLocaleTimeString());
 
-    // Metode yang dipanggil setelah komponen dirender
-    componentDidMount() {
-        this.timerId = setInterval(
-            () => this.tick(),
-            1000
-        );
-    }
+    /**
+     * Menggunakan useEffect untuk mengatur interval yang akan memperbaharui waktu setiap detik,
+     * useEffect akan membersihkan interval ketika komponen unmount 
+     */
+    useEffect(() => {const timerId = setInterval(() => {
+            setTime(new Date().toLocaleTimeString());
+        }, 1000);
 
-    // Metode yang dipanggil sebelum komponen dihapus dari DOM
-    componentWillUnmount() {
-        clearInterval(this.timerId);
-    }
+        // ! Pastikan untuk membersihkan interval agar tidak terjadi kebocoran memori
+        return () => clearInterval(timerId);
+    }, []);
 
-    // Pembaharuan state time dengan waktu saat ini
-    tick(){
-        this.setState({
-            time: new Date().toLocaleTimeString()
-        });
-    }
+    return (
+        <div>
+            <h2>{time}</h2>
+        </div>
+    )
 
-    // Merender tampilan komponen
-    render(){
-        return (
-            <div>
-                <h2>{this.state.time}</h2>
-            </div>
-        )
-    }
-}
+} 
 
 export default Clock;

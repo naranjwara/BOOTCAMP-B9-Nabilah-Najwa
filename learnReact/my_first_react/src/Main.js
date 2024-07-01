@@ -2,12 +2,26 @@ import React, { Component} from 'react';
 import Comments from './Comments'; 
 import { faker } from '@faker-js/faker';
 
-// Inisialisasi komponen Main dengan properti
+/**
+ * Komponen Main untuk menampilkan data palsu menggunakan faker-js dan mengelola state data serta aksi 'Like'.
+ * 
+ * @component
+ * @example
+ * 
+  * class App extends Component {
+ *   render() {
+ *     return (
+ *       <Main />
+ *     );
+ *   }
+ * }
+ */
+
 class Main extends Component {
     constructor(props) {
         super(props);
         
-        // Inisialisasi state dengan data faker 
+        // Inisialisasi state dengan data palsu faker-js.
         this.state = {
             data: Array.from({ length: 9 }).map(() => ({
                 avatar: faker.image.avatar(),
@@ -19,7 +33,10 @@ class Main extends Component {
         };
     }
 
-    // Fungsi menangani peningkatan jumlah like
+    /**
+     * Handle untuk menambahkkan jumlah 'like' pada komentar yang dipilih.
+     * @param {number} index - Indeks pada komentar yang akan diberi like.
+     */
     handleLikeClick = (index) => {
         this.setState(prevState => {
             const newData = [...prevState.data];
@@ -35,12 +52,10 @@ class Main extends Component {
         return (
             <div>
             <h1>Data Display</h1>
-            {/* Menampilkan komponen Comments dengan prop data dan handleLikeClick */}
             <Comments data={this.state.data} handleLikeClick={this.handleLikeClick}/> 
             </div>
         );
     }
 }
 
-// Ekspor Main sebagai module
 export default Main;

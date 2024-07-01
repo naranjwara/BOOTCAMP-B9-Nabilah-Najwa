@@ -4,10 +4,10 @@ import ReactDOM from 'react-dom/client';
 // import Content from './Content'; // Komponen utama konten
 // import Comments from './Comments'; // Komponen daftar comments
 // import Main from './Main'; // Komponen data yang dikirimkan ke Comments
-// import Clock from './TimeString';
+import Clock from './TimeString';
 // import UserInput from './UserInput'
-import Gallery from './Gallery';
-import ScrollToTopButton from './scrollToTopButton';
+// import Gallery from './Gallery';
+// import ScrollToTopButton from './scrollToTopButton';
 
 const root = document.getElementById('root');
 // const navbarRoot = document.getElementById('navbar-root');
@@ -23,10 +23,10 @@ rootContainer.render(
     {/* <Main /> */}
     {/* <Comments /> */}
     {/* <Content />  */}
-    {/* <Clock /> */}
+    <Clock />
     {/* <UserInput /> */}
-    <ScrollToTopButton />
-    <Gallery />
+    {/* <ScrollToTopButton />
+    <Gallery /> */}
     {/* <h2>{new Date().toLocaleTimeString()}</h2> */}
   </React.StrictMode>
 );
